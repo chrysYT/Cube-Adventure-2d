@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Platform</title>
+    <link rel="stylesheet" href="platform.css" />
+  </head>
+  <body>
+    <audio
+      autoplay
+      loop
+      src="imgs/scifi/corporate-upbeat-minimal-main-9666.mp3"
+      class="bgmusic"
+    ></audio>
+    <audio
+      autoplay
+      src="imgs/scifi/mixkit-futuristic-door-open-183.mp3"
+      class="soundeff"
+    ></audio>
+    <div class="mainmenu">
+      <name>Cube Adventure 2D</name>
+      <div class="start" onclick="startgame()"><h1>START</h1></div>
+      <div class="settings"><h1>SETTINGS</h1></div>
+      <div class="quit"><h1>QUIT</h1></div>
+      <div class="resume" onclick="startgame()"><h1>RESUME</h1></div>
+    </div>
+    <div class="pause" onclick="showmainmenu()">
+      <ion-icon name="pause-circle-outline"></ion-icon>
+    </div>
+    <div class="platform"></div>
+    <div class="player">
+      <div class="top">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="nitro"></div>
+      <div class="design">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="rightctrl">
+      <div class="rightbutton">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+    <div class="leftctrl">
+      <div class="leftbutton">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </div>
+    </div>
+    <script>
+      let mm = document.querySelector(".mainmenu");
+      var plyr = document.querySelector(".player");
+      var ntr = document.querySelector(".nitro");
+      let lftctrl = document.querySelector(".leftctrl");
+      let rtctrl = document.querySelector(".rightctrl");
+      let start = document.querySelector(".start");
+      let pause = document.querySelector(".pause");
+      let resume = document.querySelector(".resume");
+      let audio = document.querySelector(".soundeff");
+      let bgmusic = document.querySelector(".bgmusic");
+      audio.pause();
+      bgmusic.volume = 0.5;
+      position = 47;
+
+      resume.style.display = "none";
+
+      lftctrl.addEventListener("mousedown", moveleft, true);
+      rtctrl.addEventListener("mousedown", moveright, true);
+
+      plyr.style.animationPlayState = "paused";
+      function moveleft() {
+        let i = setInterval(movingleft, 100);
+        function movingleft() {
+          plyr.style.right = position++ + "%";
+          plyr.style.animationPlayState = "paused";
+          ntr.style.right = -14 + "%";
+          ntr.style.backgroundImage =
+            "linear-gradient(90deg, rgba(250, 0, 0, 0.733) 0%, rgba(243, 89, 89, 0.13) 100%)";
+        }
+        lftctrl.onmouseup = function () {
+          clearInterval(i);
+          plyr.style.animationPlayState = "running";
+        };
+      }
+      function moveright() {
+        let i = setInterval(movingright, 100);
+        function movingright() {
+          plyr.style.right = position-- + "%";
+          plyr.style.animationPlayState = "paused";
+          ntr.style.right = 101 + "%";
+          ntr.style.background = "";
+        }
+        rtctrl.onmouseup = function () {
+          clearInterval(i);
+          plyr.style.animationPlayState = "running";
+        };
+      }
+
+      function startgame() {
+        mm.style.display = "none";
+        plyr.style.animationPlayState = "running";
+        audio.play();
+      }
+      function showmainmenu() {
+        mm.style.display = "flex";
+        start.style.display = "none";
+        resume.style.display = "flex";
+        plyr.style.animationPlayState = "paused";
+      }
+    </script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
